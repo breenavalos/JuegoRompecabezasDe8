@@ -1,0 +1,16 @@
+<resources>
+    <style name="AppTheme">
+        <item name="colorPrimary">#7958AA</item>
+        <item name="colorPrimaryDark">#A69AC1</item>
+        <item name="colorAccent">#4A2DED</item>
+
+    </style>
+
+   <style name="ButtonStyle">
+       <item name="android:layout_width">80dp</item>
+       <item name="android:layout_height">80dp</item>
+       <item name="android:layout_margin">2dp</item>
+       <item name="android:onClick">buttonClick</item>
+   </style>
+    
+</resources>
