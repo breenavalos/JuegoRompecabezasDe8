@@ -50,6 +50,13 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    private void loadNumbers(){
+        tiles = new int[9];
+        for (int i = 0; i<group.getChildCount()-1; i++){
+            tiles[i]=i+1;
+        }
+    }
+
     private void generateNumbers(){
         int n = 8;
         Random random = new Random();
@@ -59,9 +66,8 @@ public class GameActivity extends AppCompatActivity {
             tiles[randomNum]=tiles[n];
             tiles[n]=temp;
         }
-
         if (!isSolvable())
-            generateNumbers();
+        generateNumbers();
     }
 
     private boolean isSolvable(){
@@ -73,13 +79,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         return countInversions%2==0;
-    }
-
-    private void loadNumbers(){
-        tiles = new int[9];
-        for (int i = 0; i<group.getChildCount()-1; i++){
-            tiles[i]=i+1;
-        }
     }
 
     private void loadViews(){

@@ -14,7 +14,17 @@
         android:theme="@style/Theme.Juego_de_numeros"
         tools:targetApi="31">
         <activity
+            android:name=".ScoreActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".GameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PuntajeActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
