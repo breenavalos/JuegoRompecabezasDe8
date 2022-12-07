@@ -3,6 +3,9 @@ package um.tp.juego_de_numeros;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private RelativeLayout group;
     private Button[][] buttons;
     private int[] tiles;
-    private int contMovimientos;
+    public static int cantIntentos;
     private TextView movimientos;
 
     @Override
@@ -31,7 +34,7 @@ public class GameActivity extends AppCompatActivity {
         generateNumbers();
         loadDataToViews();
 
-        contMovimientos = 0;
+        cantIntentos = 0;
     }
 
     private void loadDataToViews(){
@@ -94,8 +97,8 @@ public class GameActivity extends AppCompatActivity {
         int y = button.getTag().toString().charAt(1)-'0';
 
         movimientos = findViewById(R.id.CantMovimientos);
-        contMovimientos++;
-        movimientos.setText(contMovimientos+"");
+        cantIntentos++;
+        movimientos.setText(cantIntentos+"");
 
         if ((Math.abs(emptyX-x)==1&&emptyY==y)||(Math.abs(emptyY-y)==1&&emptyX==x)){ // verifica solo si empty es [2][2]
             buttons[emptyX][emptyY].setText(button.getText().toString());
@@ -107,6 +110,53 @@ public class GameActivity extends AppCompatActivity {
             checkWin();
         }
 
+    }
+
+    private void mostrarDialogoPuntaje(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setTitle("¿QUERÉS REGISTRAR TU PUNTAJE?");
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        irAPuntaje();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); mostrarDialogoBasico();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    private void mostrarDialogoBasico(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(GameActivity.this);
+        builder.setTitle("¿QUERÉS VOLVER A JUGAR?");
+        builder
+                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"👍👍👍", Toast.LENGTH_SHORT).show();
+                        finish();
+                        startActivity(getIntent());
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"Cancelando...",Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
+    }
+
+    public void irAPuntaje() {
+        Intent intent = new Intent(this, PuntajeActivity.class);
+        startActivity(intent);
     }
 
     private void checkWin(){
@@ -124,8 +174,9 @@ public class GameActivity extends AppCompatActivity {
         if (isWin){
             Toast.makeText(this, "Win!!!", Toast.LENGTH_SHORT).show();
             for (int i = 0; i<group.getChildCount();i++){
-                buttons[i/3][i%3].setClickable(false);
+                buttons[i/3][i%3].setClickable(false); // para que no pueda seguir haciendo movimientos
             }
+            mostrarDialogoPuntaje();
         }
     }
 
