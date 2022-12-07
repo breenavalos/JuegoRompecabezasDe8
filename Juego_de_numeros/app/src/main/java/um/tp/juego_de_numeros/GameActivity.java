@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -17,6 +18,8 @@ public class GameActivity extends AppCompatActivity {
     private RelativeLayout group;
     private Button[][] buttons;
     private int[] tiles;
+    private int contMovimientos;
+    private TextView movimientos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
         loadNumbers();
         generateNumbers();
         loadDataToViews();
+
+        contMovimientos = 0;
     }
 
     private void loadDataToViews(){
@@ -88,7 +93,11 @@ public class GameActivity extends AppCompatActivity {
         int x = button.getTag().toString().charAt(0)-'0';
         int y = button.getTag().toString().charAt(1)-'0';
 
-        if ((Math.abs(emptyX-x)==1&&emptyY==y)||(Math.abs(emptyY-y)==1&&emptyX==x)){
+        movimientos = findViewById(R.id.CantMovimientos);
+        contMovimientos++;
+        movimientos.setText(contMovimientos+"");
+
+        if ((Math.abs(emptyX-x)==1&&emptyY==y)||(Math.abs(emptyY-y)==1&&emptyX==x)){ // verifica solo si empty es [2][2]
             buttons[emptyX][emptyY].setText(button.getText().toString());
             buttons[emptyX][emptyY].setBackgroundResource(android.R.drawable.btn_default);
             button.setText("");
