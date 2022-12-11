@@ -37,19 +37,16 @@ public class GameActivity extends AppCompatActivity {
         cantIntentos = 0;
     }
 
-    private void loadDataToViews(){
-        emptyX=2;
-        emptyY=2;
-        for (int i=0;i<group.getChildCount()-1;i++){
-            buttons[i/3][i%3].setText(String.valueOf(tiles[i]));
-            buttons[i/3][i%3].setBackgroundResource(android.R.drawable.btn_default);
+    private void loadViews(){
+        group=findViewById(R.id.group);
+        buttons = new Button[3][3];
+
+        for (int i = 0; i<group.getChildCount(); i++){
+            buttons[i/3][i%3] = (Button) group.getChildAt(i);
         }
-
-        buttons[emptyX][emptyY].setText("");
-        buttons[emptyX][emptyY].setBackgroundColor(ContextCompat.getColor(this,R.color.colorFreeButton));
-
     }
 
+    //Funcion loadNumbers: Carga el vector con los numeros del 1 al 8
     private void loadNumbers(){
         tiles = new int[9];
         for (int i = 0; i<group.getChildCount()-1; i++){
@@ -57,6 +54,9 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /* Funcion generateNumbers
+       1) Seleccionamos un índice aleatorio de 0 a 7
+       2) Intercambiamos el vector[i] con el elemento en el índice aleatorio (Función Shuffle de Java)*/
     private void generateNumbers(){
         int n = 8;
         Random random = new Random();
@@ -70,6 +70,10 @@ public class GameActivity extends AppCompatActivity {
         generateNumbers();
     }
 
+    /* Funcion isSolvable
+       1) Convertimos de rompecabezas 2-D a forma lineal.
+       2) Contamos la cantidad de inversiones.
+       3) Devuelve verdadero si el recuento de inversiones es par.*/
     private boolean isSolvable(){
         int countInversions=0;
         for (int i=0; i<8; i++){
@@ -81,13 +85,17 @@ public class GameActivity extends AppCompatActivity {
         return countInversions%2==0;
     }
 
-    private void loadViews(){
-        group=findViewById(R.id.group);
-        buttons = new Button[3][3];
-
-        for (int i = 0; i<group.getChildCount(); i++){
-            buttons[i/3][i%3] = (Button) group.getChildAt(i);
+    private void loadDataToViews(){
+        emptyX=2;
+        emptyY=2;
+        for (int i=0;i<group.getChildCount()-1;i++){
+            buttons[i/3][i%3].setText(String.valueOf(tiles[i]));
+            buttons[i/3][i%3].setBackgroundResource(android.R.drawable.btn_default);
         }
+
+        buttons[emptyX][emptyY].setText("");
+        buttons[emptyX][emptyY].setBackgroundColor(ContextCompat.getColor(this,R.color.colorFreeButton));
+
     }
 
     public void buttonClick(View view){
