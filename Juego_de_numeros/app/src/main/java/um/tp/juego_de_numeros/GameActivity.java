@@ -31,12 +31,7 @@ public class GameActivity extends AppCompatActivity {
 
         loadViews();
         loadNumbers();
-        //Falso -> Facil / Verdadero-> Dificil
-        if(MainActivity.bandera){
-            generateNumbers();
-        }else{
-            generateNumbersEasy();
-        }
+        generateNumbers();
 
         loadDataToViews();
 
@@ -71,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
        1) Seleccionamos un índice aleatorio de 0 a 7
        2) Intercambiamos el vector[i] con el elemento en el índice aleatorio (Función Shuffle de Java)*/
     private void generateNumbers(){
-        int n = 8;
+        int n = MainActivity.nivel;
         Random random = new Random();
         while (n>1){
             int randomNum = random.nextInt(n--); // 8 ... 7... 6. Num aleatorio indice posicion ramdomNum=2
@@ -81,18 +76,6 @@ public class GameActivity extends AppCompatActivity {
         }
         if (!isSolvable())
         generateNumbers();
-    }
-    private void generateNumbersEasy(){
-        int n = 4;
-        Random random = new Random();
-        while (n>1){
-            int randomNum = random.nextInt(n--); // 8 ... 7... 6. Num aleatorio indice posicion ramdomNum=2
-            int temp = tiles[randomNum];// temp= 3
-            tiles[randomNum]=tiles[n];
-            tiles[n]=temp;
-        }
-        if (!isSolvable())
-            generateNumbers();
     }
 
     /* Funcion isSolvable

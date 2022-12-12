@@ -17,30 +17,41 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    private Button botonComenzarFacil;
-    private Button botonComenzarDificil;
-    //Falso -> Facil / Verdadero-> Dificil
-    public static boolean bandera=false;
+    private Button button_start_game_n3;
+    private Button button_start_game_n2;
+    private Button button_start_game_n1;
+
+    //nivel 3= 8 - nivel 2= 5 - nivel 1 = 3
+    public static int nivel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        botonComenzarDificil=findViewById(R.id.button_start_game_dif);
-        botonComenzarFacil=findViewById(R.id.button_start_game_ea);
+        button_start_game_n3=findViewById(R.id.button_start_game_n3);
+        button_start_game_n2=findViewById(R.id.button_start_game_n2);
+        button_start_game_n1=findViewById(R.id.button_start_game_n1);
 
-        botonComenzarFacil.setOnClickListener(new View.OnClickListener() {
+        button_start_game_n1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Bandera queda en falso.
+                nivel=3;
                 startActivity(new Intent(MainActivity.this,GameActivity.class));
             }
         });
-        botonComenzarDificil.setOnClickListener(new View.OnClickListener() {
+        button_start_game_n2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bandera=true;
+                nivel=5;
+                startActivity(new Intent(MainActivity.this,GameActivity.class));
+            }
+        });
+        button_start_game_n3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                nivel=8;
                 startActivity(new Intent(MainActivity.this,GameActivity.class));
             }
         });

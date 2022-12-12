@@ -13,20 +13,28 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/button_start_game_ea"
+            android:id="@+id/button_start_game_n1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:text="Comenzar juego fácil" />
+            android:text="NIVEL 1" />
 
         <Button
-            android:id="@+id/button_start_game_dif"
+            android:id="@+id/button_start_game_n2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
-            android:text="Comenzar juego dificil" />
+            android:text="NIVEL 2" />
+
+        <Button
+            android:id="@+id/button_start_game_n3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:text="NIVEL 3" />
 
     </LinearLayout>
 
