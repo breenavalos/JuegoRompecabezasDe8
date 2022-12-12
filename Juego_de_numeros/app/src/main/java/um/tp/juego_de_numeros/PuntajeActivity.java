@@ -127,37 +127,6 @@ public class PuntajeActivity extends AppCompatActivity {
         }
     }
 
-    /*public void registrar(View v){
-        Cursor fila = consulta(v);
-        if (fila.getCount()!=0) {
-            int cantIntentosDB = fila.getInt(1);
-
-            if (cantIntentosDB>cantIntentos){
-                modificacion(v);
-            }
-
-        }
-        else{
-            alta(v);
-        }
-
-        listaIntentos = findViewById(R.id.listaIntentos);
-        LinearLayout layout = (LinearLayout)findViewById(R.id.layoutListaIntentos);
-
-        layout.removeAllViewsInLayout();
-
-        TextView subtitulo = new TextView(this);
-        subtitulo.setText("DNI       Cant Intentos");
-        layout.addView(subtitulo);
-
-        for (int i= 0; i<cantIntentos*6; i=i+6) {
-            String unDni = fila.getString(0)+"         "+fila.getInt(1);
-            TextView a = new TextView(this);
-            a.setText(unDni);
-            layout.addView(a);
-        }
-    }*/
-
     public void resetearTabla(String TABLE_NAME) {
         String clearDBQuery = "DELETE FROM "+TABLE_NAME;
         AdminBase admin = new AdminBase(this, "baseDeducirNro", null, 1);

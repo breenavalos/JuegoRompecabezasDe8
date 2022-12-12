@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button_start_game_n2;
     private Button button_start_game_n1;
 
-    //nivel 3= 8 - nivel 2= 5 - nivel 1 = 3
+    //nivel 3= 8 - nivel 2= 6 - nivel 1 = 4
     public static int nivel;
 
     @Override
@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         button_start_game_n1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nivel=3;
+                nivel=4;
                 startActivity(new Intent(MainActivity.this,GameActivity.class));
             }
         });
         button_start_game_n2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nivel=5;
+                nivel=6;
                 startActivity(new Intent(MainActivity.this,GameActivity.class));
             }
         });

@@ -20,9 +20,10 @@ public class GameActivity extends AppCompatActivity {
     private int emptyY=2;
     private RelativeLayout group;
     private Button[][] buttons;
-    private int[] vector_numeros;
+    private int[] vector_numeros,vec_inicial;
     public static int cantIntentos;
     private TextView movimientos;
+    private Button btnSalir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,12 @@ public class GameActivity extends AppCompatActivity {
         cargaNumeros();
         generateNumbers();
 
-        loadDataToViews();
+        cargarValoresBotones();
 
         cantIntentos = 0;
+
+        btnSalir = findViewById(R.id.button_reset);
+        btnSalir.setOnClickListener((v) -> { finish();});
     }
 
     // Objetos botones como matriz
@@ -84,16 +88,26 @@ public class GameActivity extends AppCompatActivity {
        3) Devuelve verdadero si el recuento de inversiones es par.*/
     private boolean isSolvable(){
         int countInversions=0;
+        boolean value = false;
         for (int i=0; i<8; i++){
             for (int j=0; j<i; j++) {
                 if (vector_numeros[j] < vector_numeros[i])
                     countInversions++;
             }
         }
-        return countInversions%2==0;
+        /*Validar que no queden los numeros iguales por valor par igual a 0*/
+
+        vec_inicial = new int[9];
+        for (int i = 0; i<group.getChildCount()-1; i++)
+            vec_inicial[i]=i+1;
+
+        if(countInversions%2==0 && vector_numeros!=vec_inicial){
+            value = true;
+        }
+        return value;
     }
 
-    private void loadDataToViews(){
+    private void cargarValoresBotones(){
         emptyX=2;
         emptyY=2;
         for (int i=0;i<group.getChildCount()-1;i++){
@@ -122,7 +136,7 @@ public class GameActivity extends AppCompatActivity {
             movimientos = findViewById(R.id.CantMovimientos);
             cantIntentos++;
             movimientos.setText(cantIntentos+"");
-            checkWin();
+            verificarGanador();
         }
 
     }
@@ -174,7 +188,7 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void checkWin(){
+    private void verificarGanador(){
         boolean isWin = false;
         if (emptyX==2&&emptyY==2){
             for (int i=0; i<group.getChildCount()-1;i++){
