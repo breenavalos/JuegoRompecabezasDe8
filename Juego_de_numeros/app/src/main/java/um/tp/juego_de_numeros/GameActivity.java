@@ -31,12 +31,22 @@ public class GameActivity extends AppCompatActivity {
 
         loadViews();
         loadNumbers();
-        generateNumbers();
+        //Falso -> Facil / Verdadero-> Dificil
+        if(MainActivity.bandera){
+            generateNumbers();
+        }else{
+            generateNumbersEasy();
+        }
+
         loadDataToViews();
 
         cantIntentos = 0;
     }
 
+    // Objetos botones como matriz
+    /*123
+      456
+      78 */
     private void loadViews(){
         group=findViewById(R.id.group);
         buttons = new Button[3][3];
@@ -47,6 +57,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     //Funcion loadNumbers: Carga el vector con los numeros del 1 al 8
+    /*123
+      456
+      780 */
     private void loadNumbers(){
         tiles = new int[9];
         for (int i = 0; i<group.getChildCount()-1; i++){
@@ -61,13 +74,25 @@ public class GameActivity extends AppCompatActivity {
         int n = 8;
         Random random = new Random();
         while (n>1){
-            int randomNum = random.nextInt(n--);
-            int temp = tiles[randomNum];
+            int randomNum = random.nextInt(n--); // 8 ... 7... 6. Num aleatorio indice posicion ramdomNum=2
+            int temp = tiles[randomNum];// temp= 3
             tiles[randomNum]=tiles[n];
             tiles[n]=temp;
         }
         if (!isSolvable())
         generateNumbers();
+    }
+    private void generateNumbersEasy(){
+        int n = 4;
+        Random random = new Random();
+        while (n>1){
+            int randomNum = random.nextInt(n--); // 8 ... 7... 6. Num aleatorio indice posicion ramdomNum=2
+            int temp = tiles[randomNum];// temp= 3
+            tiles[randomNum]=tiles[n];
+            tiles[n]=temp;
+        }
+        if (!isSolvable())
+            generateNumbers();
     }
 
     /* Funcion isSolvable
