@@ -20,7 +20,7 @@ public class GameActivity extends AppCompatActivity {
     private int emptyY=2;
     private RelativeLayout group;
     private Button[][] buttons;
-    private int[] tiles;
+    private int[] vector_numeros;
     public static int cantIntentos;
     private TextView movimientos;
 
@@ -29,8 +29,8 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        loadViews();
-        loadNumbers();
+        cargaBotones();
+        cargaNumeros();
         generateNumbers();
 
         loadDataToViews();
@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
     /*123
       456
       78 */
-    private void loadViews(){
+    private void cargaBotones(){
         group=findViewById(R.id.group);
         buttons = new Button[3][3];
 
@@ -55,10 +55,10 @@ public class GameActivity extends AppCompatActivity {
     /*123
       456
       780 */
-    private void loadNumbers(){
-        tiles = new int[9];
+    private void cargaNumeros(){
+        vector_numeros = new int[9];
         for (int i = 0; i<group.getChildCount()-1; i++){
-            tiles[i]=i+1;
+            vector_numeros[i]=i+1;
         }
     }
 
@@ -70,9 +70,9 @@ public class GameActivity extends AppCompatActivity {
         Random random = new Random();
         while (n>1){
             int randomNum = random.nextInt(n--); // 8 ... 7... 6. Num aleatorio indice posicion ramdomNum=2
-            int temp = tiles[randomNum];// temp= 3
-            tiles[randomNum]=tiles[n];
-            tiles[n]=temp;
+            int temp = vector_numeros[randomNum];// temp= 3
+            vector_numeros[randomNum]=vector_numeros[n];
+            vector_numeros[n]=temp;
         }
         if (!isSolvable())
         generateNumbers();
@@ -86,7 +86,7 @@ public class GameActivity extends AppCompatActivity {
         int countInversions=0;
         for (int i=0; i<8; i++){
             for (int j=0; j<i; j++) {
-                if (tiles[j] < tiles[i])
+                if (vector_numeros[j] < vector_numeros[i])
                     countInversions++;
             }
         }
@@ -97,7 +97,7 @@ public class GameActivity extends AppCompatActivity {
         emptyX=2;
         emptyY=2;
         for (int i=0;i<group.getChildCount()-1;i++){
-            buttons[i/3][i%3].setText(String.valueOf(tiles[i]));
+            buttons[i/3][i%3].setText(String.valueOf(vector_numeros[i]));
             buttons[i/3][i%3].setBackgroundResource(android.R.drawable.btn_default);
         }
 
@@ -111,17 +111,17 @@ public class GameActivity extends AppCompatActivity {
         int x = button.getTag().toString().charAt(0)-'0';
         int y = button.getTag().toString().charAt(1)-'0';
 
-        movimientos = findViewById(R.id.CantMovimientos);
-        cantIntentos++;
-        movimientos.setText(cantIntentos+"");
 
-        if ((Math.abs(emptyX-x)==1&&emptyY==y)||(Math.abs(emptyY-y)==1&&emptyX==x)){ // verifica solo si empty es [2][2]
+        if ((Math.abs(emptyX-x)==1&&emptyY==y)||(Math.abs(emptyY-y)==1&&emptyX==x)){
             buttons[emptyX][emptyY].setText(button.getText().toString());
             buttons[emptyX][emptyY].setBackgroundResource(android.R.drawable.btn_default);
             button.setText("");
             button.setBackgroundColor(ContextCompat.getColor(this,R.color.colorFreeButton));
             emptyX=x;
             emptyY=y;
+            movimientos = findViewById(R.id.CantMovimientos);
+            cantIntentos++;
+            movimientos.setText(cantIntentos+"");
             checkWin();
         }
 
