@@ -201,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         if (isWin){
-            Toast.makeText(this, "Win!!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ganaste!!!", Toast.LENGTH_SHORT).show();
             for (int i = 0; i<group.getChildCount();i++){
                 buttons[i/3][i%3].setClickable(false); // para que no pueda seguir haciendo movimientos
             }
