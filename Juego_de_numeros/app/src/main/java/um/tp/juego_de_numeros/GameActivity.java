@@ -55,7 +55,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    //Funcion loadNumbers: Carga el vector con los numeros del 1 al 8
+    //Funcion cargaNumeros: Carga el vector con los numeros del 1 al 8
     /*123
       456
       780 */

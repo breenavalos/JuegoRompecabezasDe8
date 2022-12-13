@@ -31,7 +31,7 @@ public class PuntajeActivity extends AppCompatActivity {
         textViewCantIntentos = findViewById(R.id.textViewCantIntentos);
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
-        btnRegistrar.setOnClickListener((v) -> { consulta(v);});
+        btnRegistrar.setOnClickListener((v) -> { validarDatos(v);});
 
         btnSalir = findViewById(R.id.btnSalir2);
         btnSalir.setOnClickListener((v) -> { finish();});
@@ -45,6 +45,18 @@ public class PuntajeActivity extends AppCompatActivity {
         textViewIntentos = findViewById(R.id.textViewIntentos);
         textViewIntentos.setText(""+cantIntentos+"");
 
+    }
+
+    public void validarDatos(View v){
+        String a = textViewDni.getText().toString();
+        String b = textViewNombre.getText().toString();
+        if (a.isEmpty())
+            textViewDni.setError("Debe ingresar un nro de dni!");
+        else
+            if (b.isEmpty())
+                textViewNombre.setError("Debe ingresar un nombre!");
+            else
+                consulta(v);
     }
 
     public void alta(View v){
